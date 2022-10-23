@@ -28,6 +28,9 @@ h_line_ans.addLayout(v_line_ans_1)
 h_line_ans.addLayout(v_line_ans_2)
 grpbox_answers.setLayout(h_line_ans)
 
+grpbox_result = QGroupBox('Результаты теста')
+
+
 v_line_main = QVBoxLayout()
 h_line_main_1 = QHBoxLayout()
 h_line_main_2 = QHBoxLayout()
@@ -36,8 +39,7 @@ h_line_main_3 = QHBoxLayout()
 h_line_main_1.addWidget(lbl_question, alignment=Qt.AlignCenter)
 h_line_main_2.addWidget(grpbox_answers)
 h_line_main_3.addStretch(1)
-h_line_main_3.addWidget(btn_ok,
- stretch=3)
+h_line_main_3.addWidget(btn_ok, stretch=3)
 h_line_main_3.addStretch(1)
 
 v_line_main.addLayout(h_line_main_1)
