@@ -5,6 +5,16 @@ from PyQt5.QtWidgets import QGroupBox, QButtonGroup
 from random import shuffle
 
 
+# Свои классы
+class Question:
+    def __init__(self, question, right_answer, wrong1, wrong2, wrong3):
+        self.question = question
+        self.right_answer = right_answer
+        self.wrong1 = wrong1
+        self.wrong2 = wrong2
+        self.wrong3 = wrong3
+# Свои классы
+
 # Функции
 def show_result():
     grpbox_answers.hide()
