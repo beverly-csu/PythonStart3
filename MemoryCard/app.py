@@ -15,6 +15,14 @@ class Question:
         self.wrong3 = wrong3
 # Свои классы
 
+# Список с вопросами
+question_list = [
+    Question('Вопрос №1', '2005', '2009', '2012', '2001'),
+    Question('Вопрос №2', '1905', '1912', '1967', '1932'),
+    Question('Вопрос №3', '988', '968', '1292', '1349'),
+]
+# Список с вопросами
+
 # Функции
 def show_result():
     grpbox_answers.hide()
