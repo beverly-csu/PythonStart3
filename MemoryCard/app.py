@@ -20,6 +20,7 @@ question_list = [
     Question('Вопрос №1', '2005', '2009', '2012', '2001'),
     Question('Вопрос №2', '1905', '1912', '1967', '1932'),
     Question('Вопрос №3', '988', '968', '1292', '1349'),
+    Question('Кто создал Python?', 'Гвидо Ван Россум', 'Билл Гейтс', 'Марк Цукенберг', 'Стив Джобс')
 ]
 # Список с вопросами
 
@@ -49,15 +50,25 @@ def ask(q):
     answers[3].setText(q.wrong3)
     show_question()
 
-def start_test():
-    if btn_ok.text() == 'Ответить':
-        show_result()
+def results():
+    if answers[0].isChecked():
+        lbl_result.setText('Вы ответили правильно! Поздравляем!')
     else:
-        ask('Кто создал Python?', 'Гвидо Ван Россум', 'Билл Гейтс', 'Марк Цукенберг', 'Стив Джобс')
+        lbl_result.setText('Вы ответили неверно!\nПравильный ответ: ' + answers[0].text())
+    show_result()
+
+def start_test():
+    global q_index
+    if btn_ok.text() == 'Ответить':
+        results()
+    else:
+        ask(question_list[q_index])
+        q_index += 1
 # Функции
 
 app = QApplication([])
 window = QWidget()
+q_index = 1
 
 lbl_question = QLabel('Тут будет будующий вопрос)))')
 btn_ok = QPushButton('Ответить')
@@ -118,6 +129,8 @@ v_line_main.addLayout(h_line_main_3)
 
 window.setLayout(v_line_main)
 # Создание и установки layout'ов
+
+ask(question_list[0])
 
 window.show()
 app.exec()
