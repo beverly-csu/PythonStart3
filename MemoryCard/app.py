@@ -40,13 +40,13 @@ def show_question():
     grpbox_result.hide()
     btn_ok.setText('Ответить')
 
-def ask(question, right_answer, wrong1, wrong2, wrong3):
-    lbl_question.setText(question)
+def ask(q):
     shuffle(answers)
-    answers[0].setText(right_answer)
-    answers[1].setText(wrong1)
-    answers[2].setText(wrong2)
-    answers[3].setText(wrong3)
+    lbl_question.setText(q.question)
+    answers[0].setText(q.right_answer)
+    answers[1].setText(q.wrong1)
+    answers[2].setText(q.wrong2)
+    answers[3].setText(q.wrong3)
     show_question()
 
 def start_test():
