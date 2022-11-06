@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QPushButton, QVBoxLayout, QApplication
 from PyQt5.QtWidgets import QWidget, QRadioButton, QHBoxLayout
-from PyQt5.QtWidgets import QGroupBox, QButtonGroup
+from PyQt5.QtWidgets import QGroupBox, QButtonGroup, QMessageBox
 from random import shuffle
 
 
@@ -51,17 +51,27 @@ def ask(q):
     show_question()
 
 def results():
+    global count_right
     if answers[0].isChecked():
         lbl_result.setText('Вы ответили правильно! Поздравляем!')
+        count_right += 1
     else:
         lbl_result.setText('Вы ответили неверно!\nПравильный ответ: ' + answers[0].text())
     show_result()
+
+def show_res_msg(result=100.0):
+    msg = QMessageBox()
+    msg.setText('Результат вашего тестирования: ' + str(result) + '%')
+    msg.exec()
 
 def start_test():
     global q_index
     if btn_ok.text() == 'Ответить':
         results()
     else:
+        if q_index == len(question_list):
+            result = count_right / len(question_list) * 100
+            show_res_msg(round(result, 1))
         ask(question_list[q_index])
         q_index += 1
 # Функции
@@ -69,6 +79,7 @@ def start_test():
 app = QApplication([])
 window = QWidget()
 q_index = 1
+count_right = 0
 
 lbl_question = QLabel('Тут будет будующий вопрос)))')
 btn_ok = QPushButton('Ответить')
