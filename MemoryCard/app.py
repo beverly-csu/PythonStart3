@@ -65,24 +65,39 @@ def show_res_msg(result=100.0):
     msg.exec()
 
 def start_test():
-    global q_index
+    global q_index, count_right
     if btn_ok.text() == 'Ответить':
-        results()
+        if check_checked():
+            results()
     else:
         if q_index == len(question_list):
             result = count_right / len(question_list) * 100
             show_res_msg(round(result, 1))
+            q_index = 0
+            count_right = 0
         ask(question_list[q_index])
         q_index += 1
+
+def check_checked():
+    for btn in answers:
+        if btn.isChecked():
+            return True
+    return False
+
+def shuffle_question():
+    shuffle(question_list)
 # Функции
 
 app = QApplication([])
 window = QWidget()
+window.setFixedSize(400, 250)
 q_index = 1
 count_right = 0
 
 lbl_question = QLabel('Тут будет будующий вопрос)))')
 btn_ok = QPushButton('Ответить')
+btn_shuffle = QPushButton('🔀')
+btn_shuffle.clicked.connect(shuffle_question)
 
 # Создание GroupBox'a с вариантами ответов
 grpbox_answers = QGroupBox('Варианты ответов:')
@@ -130,8 +145,10 @@ h_line_main_3 = QHBoxLayout()
 h_line_main_1.addWidget(lbl_question, alignment=Qt.AlignCenter)
 h_line_main_2.addWidget(grpbox_answers)
 h_line_main_2.addWidget(grpbox_result)
+h_line_main_3.addStretch(5)
+h_line_main_3.addWidget(btn_ok, stretch=4)
 h_line_main_3.addStretch(1)
-h_line_main_3.addWidget(btn_ok, stretch=3)
+h_line_main_3.addWidget(btn_shuffle, stretch=1)
 h_line_main_3.addStretch(1)
 
 v_line_main.addLayout(h_line_main_1)
