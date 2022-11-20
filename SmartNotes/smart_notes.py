@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QLine
+from PyQt5.QtCore import QLine, left
 from PyQt5.QtWidgets import (
     QLabel, QPushButton, QApplication, QWidget, QVBoxLayout,
     QHBoxLayout, QListWidget, QTextEdit, QLineEdit
@@ -58,4 +58,14 @@ right_layout.addLayout(h_6)
 right_layout.addLayout(h_7)
 right_layout.addLayout(h_8)
 right_layout.addLayout(h_9)
+
+left_layout.addWidget(note_field)
+
+main_layout.addLayout(left_layout)
+main_layout.addLayout(right_layout)
+
+window.setLayout(main_layout)
 # Установка виджетов на направляющие
+
+window.show()
+app.exec()
