@@ -1,8 +1,20 @@
-from PyQt5.QtCore import QLine, left
 from PyQt5.QtWidgets import (
     QLabel, QPushButton, QApplication, QWidget, QVBoxLayout,
     QHBoxLayout, QListWidget, QTextEdit, QLineEdit
 )
+import json
+
+# Создание приветственного файла
+notes = {
+    'Первая заметка': {
+        'text': 'Ваша первая заметка была создана автоматически!',
+        'tags': ['обучение', 'умные заметки']
+    }
+}
+
+with open('notes.json', 'w', encoding='utf-8') as file:
+    json.dump(notes, file)
+# Создание приветственного файла
 
 # Основа приложения
 app = QApplication([])
