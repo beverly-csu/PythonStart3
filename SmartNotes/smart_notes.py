@@ -6,8 +6,11 @@ import json
 
 # Создание функций
 def show_note():
+    list_tags.clear()
     note_title = list_notes.selectedItems()[0].text()
     note_text = notes[note_title]['text']
+    note_tags = notes[note_title]['tags']
+    list_tags.addItems(note_tags)
     note_field.setText(note_text)
 
 def load_notes():
