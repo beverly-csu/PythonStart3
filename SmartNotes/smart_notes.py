@@ -20,7 +20,14 @@ def load_notes():
     list_notes.addItems(notes)
 
 def create_note():
+    global notes
     note_name, result = QInputDialog.getText(window, 'Создание заметки', 'Введите название:')
+    if result:
+        notes[note_name] = {
+            'text': '',
+            'tags': []
+        }
+        list_notes.addItem(note_name)
 
 # Создание функций
 
@@ -99,6 +106,7 @@ window.setLayout(main_layout)
 # Настройка и привязка
 load_notes()
 list_notes.itemClicked.connect(show_note)
+btn_create_note.clicked.connect(create_note)
 # Настройка и привязка
 
 window.show()
