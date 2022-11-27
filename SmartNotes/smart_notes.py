@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (
     QLabel, QPushButton, QApplication, QWidget, QVBoxLayout,
-    QHBoxLayout, QListWidget, QTextEdit, QLineEdit
+    QHBoxLayout, QListWidget, QTextEdit, QLineEdit, QInputDialog
 )
 import json
 
@@ -18,6 +18,10 @@ def load_notes():
     with open('notes.json', 'r', encoding='utf-8') as file:
         notes = json.load(file)
     list_notes.addItems(notes)
+
+def create_note():
+    note_name, result = QInputDialog.getText(window, 'Создание заметки', 'Введите название:')
+
 # Создание функций
 
 # Создание приветственного файла
