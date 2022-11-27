@@ -10,7 +10,10 @@ def show_note():
     note_text = notes[note_title]['text']
     note_field.setText(note_text)
 
-
+def load_notes():
+    global notes
+    with open('notes.json', 'r', encoding='utf-8') as file:
+        notes = json.load(file)
 # Создание функций
 
 # Создание приветственного файла
@@ -20,9 +23,6 @@ notes = {
         'tags': ['обучение', 'умные заметки']
     }
 }
-
-with open('notes.json', 'w', encoding='utf-8') as file:
-    json.dump(notes, file)
 # Создание приветственного файла
 
 # Основа приложения
@@ -87,6 +87,11 @@ main_layout.addLayout(right_layout)
 
 window.setLayout(main_layout)
 # Установка виджетов на направляющие
+
+# Настройка и привязка
+load_notes()
+list_notes.item
+# Настройка и привязка
 
 window.show()
 app.exec()
