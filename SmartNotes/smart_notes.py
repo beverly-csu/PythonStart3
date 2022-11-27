@@ -14,6 +14,7 @@ def load_notes():
     global notes
     with open('notes.json', 'r', encoding='utf-8') as file:
         notes = json.load(file)
+    list_notes.addItems(notes)
 # Создание функций
 
 # Создание приветственного файла
@@ -90,7 +91,7 @@ window.setLayout(main_layout)
 
 # Настройка и привязка
 load_notes()
-list_notes.item
+list_notes.itemClicked.connect(show_note)
 # Настройка и привязка
 
 window.show()
