@@ -4,6 +4,15 @@ from PyQt5.QtWidgets import (
 )
 import json
 
+# Создание функций
+def show_note():
+    note_title = list_notes.selectedItems()[0].text()
+    note_text = notes[note_title]['text']
+    note_field.setText(note_text)
+
+
+# Создание функций
+
 # Создание приветственного файла
 notes = {
     'Первая заметка': {
