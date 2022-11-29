@@ -29,6 +29,12 @@ def create_note():
         }
         list_notes.addItem(note_name)
 
+def save_note():
+    global notes
+    note_title = list_notes.selectedItems()[0].text()
+    notes[note_title]['text'] = note_field.toPlainText()
+    with open('notes.json', 'w', encoding='utf-8') as file:
+        json.dump(notes, file)
 # Создание функций
 
 # Создание приветственного файла
@@ -107,6 +113,7 @@ window.setLayout(main_layout)
 load_notes()
 list_notes.itemClicked.connect(show_note)
 btn_create_note.clicked.connect(create_note)
+btn_save_note.clicked.connect(save_note)
 # Настройка и привязка
 
 window.show()
