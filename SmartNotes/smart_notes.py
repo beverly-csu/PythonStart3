@@ -35,6 +35,15 @@ def save_note():
     notes[note_title]['text'] = note_field.toPlainText()
     with open('notes.json', 'w', encoding='utf-8') as file:
         json.dump(notes, file)
+
+def delete_note():
+    note_title = list_notes.selectedItems()[0].text()
+    del notes[note_title]
+    with open('notes.json', 'w', encoding='utf-8') as file:
+        json.dump(notes, file)
+    list_notes.clear()
+    list_notes.addItems(notes)
+    note_field.clear()
 # Создание функций
 
 # Создание приветственного файла
@@ -114,6 +123,7 @@ load_notes()
 list_notes.itemClicked.connect(show_note)
 btn_create_note.clicked.connect(create_note)
 btn_save_note.clicked.connect(save_note)
+btn_delete_note.clicked.connect(delete_note)
 # Настройка и привязка
 
 window.show()
