@@ -44,6 +44,29 @@ def delete_note():
     list_notes.clear()
     list_notes.addItems(notes)
     note_field.clear()
+
+def add_tag():
+    note_title = list_notes.selectedItems()[0].text()
+    tag = line_tag_search.text()
+    if not note_title and not tag:
+        return 
+    notes[note_title]['tags'].append(tag)
+    list_tags.addItem(tag)
+    with open('notes.json', 'w', encoding='utf-8') as file:
+        json.dump(notes, file)
+
+def delete_tag():
+    note_title = list_notes.selectedItems()[0].text()
+    tag = line_tag_search.text()
+    if not note_title and not tag:
+        return 
+    if tag in notes[note_title]['tags']:
+        notes[note_title]['tags'].remove(tag)
+        list_tags.clear()
+        list_tags.addItems(notes[note_title]['tags'])
+        with open('notes.json', 'w', encoding='utf-8') as file:
+            json.dump(notes, file)
+
 # Создание функций
 
 # Создание приветственного файла
@@ -124,6 +147,8 @@ list_notes.itemClicked.connect(show_note)
 btn_create_note.clicked.connect(create_note)
 btn_save_note.clicked.connect(save_note)
 btn_delete_note.clicked.connect(delete_note)
+btn_add_tag.clicked.connect(add_tag)
+btn_remove_tag.clicked.connect(delete_tag)
 # Настройка и привязка
 
 window.show()
