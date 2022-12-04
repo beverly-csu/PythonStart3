@@ -57,7 +57,7 @@ def add_tag():
 
 def delete_tag():
     note_title = list_notes.selectedItems()[0].text()
-    tag = line_tag_search.text()
+    tag = list_tags.selectedItems()[0].text()
     if not note_title and not tag:
         return 
     if tag in notes[note_title]['tags']:
@@ -66,6 +66,25 @@ def delete_tag():
         list_tags.addItems(notes[note_title]['tags'])
         with open('notes.json', 'w', encoding='utf-8') as file:
             json.dump(notes, file)
+
+def search_by_tag():
+    tag = line_tag_search.text()
+    if len(tag) <= 0:
+        return
+    if btn_search_by_tag.text() == 'Искать заметки по тегу':
+        btn_search_by_tag.setText('Сбросить поиск')
+        notes_with_tag = []
+        for note in notes:
+            if tag in notes[note]['tags']:
+                notes_with_tag.append(note)
+        list_notes.clear()
+        note_field.clear()
+        list_tags.clear()
+        list_notes.addItems(notes_with_tag)
+    else:
+        btn_search_by_tag.setText('Искать заметки по тегу')
+        list_notes.clear()
+        list_notes.addItems(notes)
 
 # Создание функций
 
@@ -149,6 +168,7 @@ btn_save_note.clicked.connect(save_note)
 btn_delete_note.clicked.connect(delete_note)
 btn_add_tag.clicked.connect(add_tag)
 btn_remove_tag.clicked.connect(delete_tag)
+btn_search_by_tag.clicked.connect(search_by_tag)
 # Настройка и привязка
 
 window.show()
