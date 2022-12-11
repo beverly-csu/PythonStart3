@@ -22,3 +22,8 @@ class ImageEditor:
             gray.save(new)
 
 
+MyImage = ImageEditor('PIL/classes/cat.jpg')
+MyImage.open()
+MyImage.do_bw()
+for im in MyImage.changed:
+    im.show()
