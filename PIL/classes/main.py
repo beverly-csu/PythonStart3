@@ -20,3 +20,5 @@ class ImageEditor:
             old = self.filename.split('.')
             new = old[0] + '_bw.' + old[1]
             gray.save(new)
+
+
