@@ -99,11 +99,14 @@ imgProc = ImageProcessor()
 def showCurrentImage():
     if image_list.currentRow() > 0:
         filename = image_list.currentItem().text()
-        
+        imgProc.loadImage(curDir, filename)
+        img_path = os.path.join(curDir, filename)
+        imgProc.showImage(img_path)
 # Function
 
 # Connecting
 btn_dir.clicked.connect(showFiles)
+image_list.currentRowChanged.connect(showCurrentImage)
 # Connecting
 
 # Run
