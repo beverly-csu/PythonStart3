@@ -2,6 +2,9 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton,
     QListWidget, QVBoxLayout, QHBoxLayout, QFileDialog
 )
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PIL import Image, ImageFilter
 import os
 
 # Widgets
@@ -69,6 +72,34 @@ def filter(files, extensions):
             if file.endswith(ext):
                 images.append(file)
     return images
+
+class ImageProcessor:
+    def __init__(self):
+        self.dir = None
+        self.filename = None
+        self.image = None
+        self.save_dir = 'Modifed'
+
+    def loadImage(self, dir, filename):
+        self.dir = dir
+        self.filename = filename
+        img_path = os.path.join(dir, filename)
+        self.image = Image.open(img_path)
+    
+    def showImage(self, path):
+        image.hide()
+        pixmap = QPixmap(path)
+        w, h = image.width(), image.height()
+        pixmap = pixmap.scaled(w, h, Qt.KeepAspectRation)
+        image.setPixmap(pixmap)
+        image.show()
+
+imgProc = ImageProcessor()
+
+def showCurrentImage():
+    if image_list.currentRow() > 0:
+        filename = image_list.currentItem().text()
+        
 # Function
 
 # Connecting
