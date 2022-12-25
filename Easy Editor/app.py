@@ -57,10 +57,18 @@ def showFiles():
         global curDir
         curDir = path
         files = os.listdir(path)
+        extensions = ['.png', '.jpg', '.jpeg', '.svg', '.eps', '.bmp']
+        images = filter(files, extensions)
         image_list.clear()
-        image_list.addItems(files)
+        image_list.addItems(images)
 
-
+def filter(files, extensions):
+    images = []
+    for file in files:
+        for ext in extensions:
+            if file.endswith(ext):
+                images.append(file)
+    return images
 # Function
 
 # Connecting
