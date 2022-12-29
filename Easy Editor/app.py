@@ -85,12 +85,25 @@ class ImageProcessor:
         self.filename = filename
         img_path = os.path.join(dir, filename)
         self.image = Image.open(img_path)
+
+    def do_bw(self):
+       self.image = self.image.convert("L")
+       self.saveImage()
+       image_path = os.path.join(self.dir, self.save_dir, self.filename)
+       self.showImage(image_path)
+ 
+    def saveImage(self):
+       path = os.path.join(self.dir, self.save_dir)
+       if not(os.path.exists(path) or os.path.isdir(path)):
+           os.mkdir(path)
+       image_path = os.path.join(path, self.filename)
+       self.image.save(image_path)
     
     def showImage(self, path):
         image.hide()
         pixmap = QPixmap(path)
         w, h = image.width(), image.height()
-        pixmap = pixmap.scaled(w, h, Qt.KeepAspectRation)
+        pixmap = pixmap.scaled(w, h, Qt.KeepAspectRatio)
         image.setPixmap(pixmap)
         image.show()
 
@@ -106,6 +119,7 @@ def showCurrentImage():
 
 # Connecting
 btn_dir.clicked.connect(showFiles)
+btn_bw.clicked.connect(imgProc.do_bw)
 image_list.currentRowChanged.connect(showCurrentImage)
 # Connecting
 
