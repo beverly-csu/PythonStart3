@@ -125,6 +125,12 @@ class ImageProcessor:
         image_path = os.path.join(self.dir, self.save_dir, self.filename)
         self.showImage(image_path)
 
+    def do_sharp(self):
+        self.image = self.image.filter(ImageFilter.SHARPEN)
+        self.saveImage()
+        image_path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
 imgProc = ImageProcessor()
 
 def showCurrentImage():
@@ -140,6 +146,7 @@ btn_dir.clicked.connect(showFiles)
 btn_mirror.clicked.connect(imgProc.do_flip)
 btn_left.clicked.connect(imgProc.do_left)
 btn_right.clicked.connect(imgProc.do_right)
+btn_sharp.clicked.connect(imgProc.do_sharp)
 btn_bw.clicked.connect(imgProc.do_bw)
 image_list.currentRowChanged.connect(showCurrentImage)
 # Connecting
