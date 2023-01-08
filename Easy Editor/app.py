@@ -107,6 +107,24 @@ class ImageProcessor:
         image.setPixmap(pixmap)
         image.show()
 
+    def do_flip(self):
+        self.image = self.image.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        self.saveImage()
+        image_path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
+    def do_left(self):
+        self.image = self.image.transpose(Image.Transpose.ROTATE_90)
+        self.saveImage()
+        image_path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
+    def do_right(self):
+        self.image = self.image.transpose(Image.Transpose.ROTATE_270)
+        self.saveImage()
+        image_path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
 imgProc = ImageProcessor()
 
 def showCurrentImage():
@@ -119,6 +137,9 @@ def showCurrentImage():
 
 # Connecting
 btn_dir.clicked.connect(showFiles)
+btn_mirror.clicked.connect(imgProc.do_flip)
+btn_left.clicked.connect(imgProc.do_left)
+btn_right.clicked.connect(imgProc.do_right)
 btn_bw.clicked.connect(imgProc.do_bw)
 image_list.currentRowChanged.connect(showCurrentImage)
 # Connecting
