@@ -11,7 +11,6 @@ x2, y2 = 500, 100
 
 sprite1 = transform.scale(image.load('PyGame/Catch Up/sprite1.png'), (100, 100))
 sprite2 = transform.scale(image.load('PyGame/Catch Up/sprite2.png'), (100, 100))
-
 clock = time.Clock()
 FPS = 60
 
@@ -27,6 +26,15 @@ while game:
         y2 += 10
     if keys[K_UP] and y2 > 5:
         y2 -= 10
+
+    if keys[K_d] and x1 < 595:
+        x1 += 10
+    if keys[K_a] and x1 > 5:
+        x1 -= 10
+    if keys[K_s] and y1 < 595:
+        y1 += 10
+    if keys[K_w] and y1 > 5:
+        y1 -= 10
 
     window.blit(background, (0, 0))
     window.blit(sprite1, (x1, y1))
