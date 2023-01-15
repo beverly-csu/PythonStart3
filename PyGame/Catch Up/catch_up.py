@@ -22,7 +22,7 @@ while game:
         x2 += 10
     if keys[K_LEFT] and x2 > 5:
         x2 -= 10
-    if keys[K_DOWN] and y2 < 595:
+    if keys[K_DOWN] and y2 < 395:
         y2 += 10
     if keys[K_UP] and y2 > 5:
         y2 -= 10
@@ -31,7 +31,7 @@ while game:
         x1 += 10
     if keys[K_a] and x1 > 5:
         x1 -= 10
-    if keys[K_s] and y1 < 595:
+    if keys[K_s] and y1 < 395:
         y1 += 10
     if keys[K_w] and y1 > 5:
         y1 -= 10
