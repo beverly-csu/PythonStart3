@@ -13,6 +13,8 @@ game = True
 while game:
     window.blit(background, (0, 0))
 
-    
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
 
     display.update()
