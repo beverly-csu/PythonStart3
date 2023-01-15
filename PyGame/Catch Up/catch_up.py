@@ -9,6 +9,9 @@ background = transform.scale(
     (700, 500)
 )
 
+x1, y1 = 100, 100
+x2, y2 = 500, 100
+
 game = True
 while game:
     window.blit(background, (0, 0))
