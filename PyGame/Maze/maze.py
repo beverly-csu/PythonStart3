@@ -19,13 +19,17 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys_pressed[K_DOWN] and self.rect.y < (height - self.rect.height - 5):
             self.rect.y += self.speed
+        if keys_pressed[K_LEFT] and self.rect.x > 5:
+            self.rect.x -= self.speed
+        if keys_pressed[K_RIGHT] and self.rect.x < (width - self.rect.width - 5):
+            self.rect.x += self.speed
 
 width, height = 700, 500
 window = display.set_mode((width, height))
 display.set_caption('Maze | Лабиринт')
 
 background = transform.scale(image.load('background.jpg'), (width, height))
-hero = GameSprite('hero.png', 1, 100, 100)
+hero = Player('hero.png', 10, 100, 100)
 enemy = GameSprite('cyborg.png', 1, 400, 100)
 treasure = GameSprite('treasure.png', 0, 500, 500)
 
@@ -39,6 +43,7 @@ FPS = 60
 game = True
 while game:
     window.blit(background, (0, 0))
+    hero.update()
     hero.clear()
     enemy.clear()
     treasure.clear()
