@@ -16,7 +16,7 @@ width, height = 700, 500
 window = display.set_mode((width, height))
 display.set_caption('Maze | Лабиринт')
 
-background = transform.scale(image.load('background.png'), (width, height))
+background = transform.scale(image.load('background.jpg'), (width, height))
 hero = GameSprite('hero.png', 1, 100, 100)
 enemy = GameSprite('cyborg.png', 1, 400, 100)
 treasure = GameSprite('treasure.png', 0, 500, 500)
