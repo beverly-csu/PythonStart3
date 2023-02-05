@@ -57,7 +57,7 @@ display.set_caption('Maze | Лабиринт')
 background = transform.scale(image.load('background.jpg'), (width, height))
 hero = Player('hero.png', 10, 10, 10)
 enemy = Enemy('cyborg.png', 1, 620, 300)
-treasure = GameSprite('treasure.png', 0, 500, 500)
+treasure = GameSprite('treasure.png', 0, 580, 410)
 
 w1 = Wall(300, 10, 100, 20, (255, 0, 0))
 w2 = Wall(10, 200, 100, 20, (255, 0, 0))
@@ -70,17 +70,44 @@ mixer.music.play()
 clock = time.Clock()
 FPS = 60
 
+def check_lose():
+    if sprite.collide_rect(hero, w1): return True
+    if sprite.collide_rect(hero, w2): return True
+    if sprite.collide_rect(hero, w3): return True
+    if sprite.collide_rect(hero, enemy): return True
+    return False
+
+def check_win():
+    if sprite.collide_rect(hero, treasure): return True
+    return False
+
+font.init()
+my_font = font.Font(None, 70)
+win = my_font.render('Вы выиграли!', True, (220, 220, 220), (52, 200, 52))
+lose = my_font.render('Вы проиграли!', True, (220, 220, 220), (205, 39, 39))
+
 game = True
+finish = False
 while game:
-    window.blit(background, (0, 0))
-    hero.update()
-    hero.clear()
-    enemy.update()
-    enemy.clear()
-    treasure.clear()
-    w1.draw()
-    w2.draw()
-    w3.draw()
+    if not finish:
+        window.blit(background, (0, 0))
+        hero.update()
+        hero.clear()
+        enemy.update()
+        enemy.clear()
+        treasure.clear()
+        w1.draw()
+        w2.draw()
+        w3.draw()
+
+        if check_lose():
+            result = lose
+            finish = True
+        if check_win():
+            result = win
+            finish = True
+    else:
+        window.blit(result, (200, 200))
 
     for e in event.get():
         if e.type == QUIT:
