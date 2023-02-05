@@ -37,14 +37,31 @@ class Enemy(GameSprite):
         if self.direction == 'right':
             self.rect.x += self.speed  
 
+class Wall(sprite.Sprite):
+    def __init__(self, width, height, x, y, color):
+        super().__init__()
+        self.image = Surface((width, height))
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def draw(self):
+        window.blit(self.image, (self.rect.x, self.rect.y))
+
+
 width, height = 700, 500
 window = display.set_mode((width, height))
 display.set_caption('Maze | Лабиринт')
 
 background = transform.scale(image.load('background.jpg'), (width, height))
-hero = Player('hero.png', 10, 100, 100)
+hero = Player('hero.png', 10, 10, 10)
 enemy = Enemy('cyborg.png', 1, 620, 300)
 treasure = GameSprite('treasure.png', 0, 500, 500)
+
+w1 = Wall(300, 10, 100, 20, (255, 0, 0))
+w2 = Wall(10, 200, 100, 20, (255, 0, 0))
+w3 = Wall(10, 300, 500, 150, (255, 0, 0))
 
 mixer.init()
 mixer.music.load('jungles.ogg')
@@ -61,6 +78,9 @@ while game:
     enemy.update()
     enemy.clear()
     treasure.clear()
+    w1.draw()
+    w2.draw()
+    w3.draw()
 
     for e in event.get():
         if e.type == QUIT:
