@@ -32,6 +32,7 @@ mw = display.set_mode((WIDTH, HEIGHT))
 display.set_caption('Shooter | шутер')
 
 background = transform.scale(image.load('bg.jpg'), (WIDTH, HEIGHT))
+player = Player('player.png', WIDTH // 2, HEIGHT - 70, 65, 65, 10)
 
 mixer.music.load('bg_music.ogg')
 mixer.music.play()
@@ -42,6 +43,8 @@ clock = time.Clock()
 game = True
 while game:
     mw.blit(background, (0, 0))
+    player.update()
+    player.reset()
 
     for e in event.get():
         if e.type == QUIT:
