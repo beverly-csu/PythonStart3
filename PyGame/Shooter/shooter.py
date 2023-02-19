@@ -33,10 +33,13 @@ class Enemy(GameSprite):
         if self.rect.y > HEIGHT:
             self.rect.y = -60
             self.speed = randint(1, 8)
+            global lost
+            lost += 1
 
 
 WIDTH, HEIGHT = 700, 500
 FPS = 60
+lost = 0
 
 mw = display.set_mode((WIDTH, HEIGHT))
 display.set_caption('Shooter | шутер')
@@ -46,12 +49,15 @@ player = Player('player.png', WIDTH // 2, HEIGHT - 70, 65, 65, 10)
 
 monsters = sprite.Group()
 for i in range(5):
-    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 65, 65, randint(1, 8))
+    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 70, 70, randint(1, 8))
     monsters.add(enemy)
 
 mixer.music.load('bg_music.ogg')
 mixer.music.play()
 fire_sound = mixer.Sound('fire.wav')
+
+font.init()
+my_font = font.Font('my_font.otf', 30)
 
 clock = time.Clock()
 
@@ -62,6 +68,8 @@ while game:
     player.reset()
     monsters.update()
     monsters.draw(mw)
+    missed_text = my_font.render('Пропущено: ' + str(lost), True, (225, 225, 225))
+    mw.blit(missed_text, (10, 10))
 
     for e in event.get():
         if e.type == QUIT:
