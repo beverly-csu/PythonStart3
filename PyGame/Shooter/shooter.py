@@ -26,7 +26,12 @@ class Player(GameSprite):
             self.fire()
 
     def fire(self):
-        fire_sound.play()
+        # fire_sound.play()
+        x = self.rect.centerx
+        y = self.rect.top
+        bullet = Bullet('bullet.png', x, y, 10, 20, 5)
+        bullet.rect.x -= bullet.rect.width // 2
+        bullets.add(bullet)
 
 class Enemy(GameSprite):
     def update(self):
@@ -56,7 +61,7 @@ player = Player('player.png', WIDTH // 2, HEIGHT - 70, 65, 65, 10)
 
 monsters = sprite.Group()
 for i in range(5):
-    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 70, 70, randint(1, 8))
+    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
     monsters.add(enemy)
 
 bullets = sprite.Group()
