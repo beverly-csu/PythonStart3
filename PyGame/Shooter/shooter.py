@@ -2,6 +2,7 @@ from pygame import *
 from random import randint
 mixer.init()
 mixer.music.set_volume(0.2)
+import time as Timer
 
 class GameSprite(sprite.Sprite):
     def __init__(self, img, x, y, width, height, speed):
@@ -16,6 +17,7 @@ class GameSprite(sprite.Sprite):
         mw.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
+    prev_time = Timer.time()
     def update(self):
         keys = key.get_pressed()
         if keys[K_a] and self.rect.x > 5:
@@ -26,12 +28,14 @@ class Player(GameSprite):
             self.fire()
 
     def fire(self):
-        # fire_sound.play()
-        x = self.rect.centerx
-        y = self.rect.top
-        bullet = Bullet('bullet.png', x, y, 10, 20, 5)
-        bullet.rect.x -= bullet.rect.width // 2
-        bullets.add(bullet)
+        if Timer.time() - 0.3 > self.prev_time:
+            fire_sound.play()
+            x = self.rect.centerx
+            y = self.rect.top
+            bullet = Bullet('bullet.png', x, y, 10, 20, 5)
+            bullet.rect.x -= bullet.rect.width // 2
+            bullets.add(bullet)
+            self.prev_time = Timer.time()
 
 class Enemy(GameSprite):
     def update(self):
