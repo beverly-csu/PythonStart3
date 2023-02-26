@@ -1,6 +1,7 @@
 from pygame import *
 from random import randint
 mixer.init()
+mixer.music.set_volume(0.2)
 
 class GameSprite(sprite.Sprite):
     def __init__(self, img, x, y, width, height, speed):
@@ -36,6 +37,12 @@ class Enemy(GameSprite):
             global lost
             lost += 1
 
+class Bullet(GameSprite):
+    def update(self):
+        self.rect.y -= self.speed
+        if self.rect.y < 0:
+            self.kill()
+
 
 WIDTH, HEIGHT = 700, 500
 FPS = 60
@@ -51,6 +58,8 @@ monsters = sprite.Group()
 for i in range(5):
     enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 70, 70, randint(1, 8))
     monsters.add(enemy)
+
+bullets = sprite.Group()
 
 mixer.music.load('bg_music.ogg')
 mixer.music.play()
@@ -68,6 +77,8 @@ while game:
     player.reset()
     monsters.update()
     monsters.draw(mw)
+    bullets.update()
+    bullets.draw(mw)
     missed_text = my_font.render('Пропущено: ' + str(lost), True, (225, 225, 225))
     mw.blit(missed_text, (10, 10))
 
