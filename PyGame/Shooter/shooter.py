@@ -96,6 +96,25 @@ while game:
         mw.blit(missed_text, (10, 50))
         mw.blit(killed_text, (10, 10))
 
+        collided = sprite.groupcollide(monsters, bullets, True, True)
+        if len(collided) > 0:
+            for i in range(len(collided)):
+                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
+                monsters.add(enemy)
+                score += 1
+
+        if lost >= 3:
+            finish = True
+            result_text = my_font.render('Вы проиграли!', True, (255, 30, 30))
+        if score >= 10:
+            finish = True
+            result_text = my_font.render('Вы выиграли!', True, (30, 255, 30))
+    else:
+        text_rect = result_text.get_rect()
+        bg_rect = background.get_rect()
+        text_rect.center = bg_rect.center
+        mw.blit(result_text, (text_rect.x, text_rect.y))
+
     for e in event.get():
         if e.type == QUIT:
             game = False
