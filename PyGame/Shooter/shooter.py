@@ -109,11 +109,24 @@ while game:
         if score >= 10:
             finish = True
             result_text = my_font.render('Вы выиграли!', True, (30, 255, 30))
+        last_tick_time = Timer.time()
     else:
+        mw.blit(background, (0, 0))
         text_rect = result_text.get_rect()
         bg_rect = background.get_rect()
         text_rect.center = bg_rect.center
         mw.blit(result_text, (text_rect.x, text_rect.y))
+        if Timer.time() - last_tick_time > 3:
+            score = 0
+            lost = 0
+            finish = False
+            monsters.empty()
+            for i in range(5):
+                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
+                monsters.add(enemy)
+            player.rect.x = bg_rect.centerx
+
+
 
     for e in event.get():
         if e.type == QUIT:
