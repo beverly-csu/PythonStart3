@@ -56,6 +56,7 @@ class Bullet(GameSprite):
 WIDTH, HEIGHT = 700, 500
 FPS = 60
 lost = 0
+score = 0
 
 mw = display.set_mode((WIDTH, HEIGHT))
 display.set_caption('Shooter | шутер')
@@ -80,16 +81,20 @@ my_font = font.Font('my_font.otf', 30)
 clock = time.Clock()
 
 game = True
+finish = False
 while game:
-    mw.blit(background, (0, 0))
-    player.update()
-    player.reset()
-    monsters.update()
-    monsters.draw(mw)
-    bullets.update()
-    bullets.draw(mw)
-    missed_text = my_font.render('Пропущено: ' + str(lost), True, (225, 225, 225))
-    mw.blit(missed_text, (10, 10))
+    if not finish:
+        mw.blit(background, (0, 0))
+        player.update()
+        player.reset()
+        monsters.update()
+        monsters.draw(mw)
+        bullets.update()
+        bullets.draw(mw)
+        missed_text = my_font.render('Пропущено: ' + str(lost), True, (225, 225, 225))
+        killed_text = my_font.render('Уничтожено: ' + str(score), True, (225, 225, 225))
+        mw.blit(missed_text, (10, 50))
+        mw.blit(killed_text, (10, 10))
 
     for e in event.get():
         if e.type == QUIT:
