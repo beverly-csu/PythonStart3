@@ -1,7 +1,7 @@
 from pygame import *
 from random import randint
 mixer.init()
-mixer.music.set_volume(0.2)
+mixer.music.set_volume(0.05)
 import time as Timer
 
 class GameSprite(sprite.Sprite):
@@ -28,7 +28,7 @@ class Player(GameSprite):
             self.fire()
 
     def fire(self):
-        if Timer.time() - 0.3 > self.prev_time:
+        if Timer.time() - 0.1 > self.prev_time:
             fire_sound.play()
             x = self.rect.centerx
             y = self.rect.top
@@ -53,6 +53,12 @@ class Bullet(GameSprite):
             self.kill()
 
 
+class Asteroid(GameSprite):
+    def update(self):
+        self.rect.y += self.speed
+        
+
+
 WIDTH, HEIGHT = 700, 500
 FPS = 60
 lost = 0
@@ -61,22 +67,23 @@ score = 0
 mw = display.set_mode((WIDTH, HEIGHT))
 display.set_caption('Shooter | шутер')
 
-background = transform.scale(image.load('bg.jpg'), (WIDTH, HEIGHT))
-player = Player('player.png', WIDTH // 2, HEIGHT - 70, 65, 65, 10)
+background = transform.scale(image.load('galaxy.jpg'), (WIDTH, HEIGHT))
+player = Player('rocket.png', WIDTH // 2, HEIGHT - 70, 65, 65, 10)
 
 monsters = sprite.Group()
 for i in range(5):
-    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
+    enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 50, randint(1, 8))
     monsters.add(enemy)
 
 bullets = sprite.Group()
 
-mixer.music.load('bg_music.ogg')
+mixer.music.load('space.ogg')
 mixer.music.play()
-fire_sound = mixer.Sound('fire.wav')
+fire_sound = mixer.Sound('fire.ogg')
+fire_sound.set_volume(0.02)
 
 font.init()
-my_font = font.Font('my_font.otf', 30)
+my_font = font.Font(None, 30)
 
 clock = time.Clock()
 
@@ -99,7 +106,7 @@ while game:
         collided = sprite.groupcollide(monsters, bullets, True, True)
         if len(collided) > 0:
             for i in range(len(collided)):
-                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
+                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 50, randint(1, 8))
                 monsters.add(enemy)
                 score += 1
 
@@ -122,7 +129,7 @@ while game:
             finish = False
             monsters.empty()
             for i in range(5):
-                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 100, randint(1, 8))
+                enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 50, randint(1, 8))
                 monsters.add(enemy)
             player.rect.x = bg_rect.centerx
 
