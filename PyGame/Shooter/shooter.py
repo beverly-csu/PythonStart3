@@ -58,6 +58,8 @@ class Player(GameSprite):
             reload_rect.centerx = WIDTH // 2
             reload_rect.centery = HEIGHT // 2
             mw.blit(reload, (reload_rect.x, reload_rect.y))
+        health = my_font.render(str(self.health), True, (255, 50, 50))
+        mw.blit(health, (WIDTH - 50, 20))
 
 
 class Enemy(GameSprite):
