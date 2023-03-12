@@ -33,9 +33,6 @@ class Player(GameSprite):
     def fire(self):
         if Timer.time() - self.prev_time < 2 and self.rel_flag:
             return
-        if Timer.time() - self.prev_time > 2 and self.rel_flag:
-            self.rel_flag = False
-            self.num_fire = 0
         if Timer.time() - 0.1 > self.prev_time:
             fire_sound.play()
             x = self.rect.centerx
@@ -50,8 +47,13 @@ class Player(GameSprite):
 
     def reset(self):
         super().reset()
+        if Timer.time() - self.prev_time > 2 and self.rel_flag:
+            self.rel_flag = False
+            self.num_fire = 0
         if self.rel_flag:
-            reload = my_font.render('Перезарядка', True, (225, 225, 225))
+            reload_time = round(2 - (Timer.time() - self.prev_time), 1)
+            reload_text = 'Перезарядка ещё ' + str(reload_time) + 'с'
+            reload = my_font.render(reload_text, True, (225, 225, 225))
             reload_rect = reload.get_rect()
             reload_rect.centerx = WIDTH // 2
             reload_rect.centery = HEIGHT // 2
@@ -83,7 +85,7 @@ class Asteroid(GameSprite):
             self.speed = randint(1, 5)
 
 
-WIDTH, HEIGHT = 700, 500
+WIDTH, HEIGHT = 1280, 720
 FPS = 60
 lost = 0
 score = 0
@@ -141,7 +143,7 @@ while game:
                 monsters.add(enemy)
                 score += 1
 
-        if lost >= 3:
+        if lost >= 10:
             finish = True
             result_text = my_font.render('Вы проиграли!', True, (255, 30, 30))
         if score >= 10:
