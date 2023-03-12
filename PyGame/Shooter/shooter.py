@@ -145,6 +145,13 @@ while game:
                 monsters.add(enemy)
                 score += 1
 
+        collided = sprite.spritecollide(player, asteroids, True)
+        if len(collided):
+            for i in range(len(collided)):
+                asteroid = Asteroid('asteroid.png', randint(0, WIDTH), -100, 50, 50, randint(1, 5))
+                asteroids.add(asteroid)
+                player.health -= 1
+
         if lost >= 10:
             finish = True
             result_text = my_font.render('Вы проиграли!', True, (255, 30, 30))
