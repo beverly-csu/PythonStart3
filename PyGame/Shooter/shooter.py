@@ -56,7 +56,10 @@ class Bullet(GameSprite):
 class Asteroid(GameSprite):
     def update(self):
         self.rect.y += self.speed
-        
+        if self.rect.y > HEIGHT:
+            self.rect.y = -self.rect.height
+            self.rect.x = randint(0, WIDTH - self.rect.width)
+            self.speed = randint(1, 5)
 
 
 WIDTH, HEIGHT = 700, 500
@@ -74,6 +77,11 @@ monsters = sprite.Group()
 for i in range(5):
     enemy = Enemy('ufo.png', randint(0, WIDTH), -100, 100, 50, randint(1, 8))
     monsters.add(enemy)
+
+asteroids = sprite.Group()
+for i in range(3):
+    asteroid = Asteroid('asteroid.png', randint(0, WIDTH), -100, 50, 50, randint(1, 5))
+    asteroids.add(asteroid)
 
 bullets = sprite.Group()
 
