@@ -17,6 +17,9 @@ class GameSprite(sprite.Sprite):
         mw.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
+    health = 5
+    num_fire = 0
+    rel_flag = False
     prev_time = Timer.time()
     def update(self):
         keys = key.get_pressed()
@@ -28,6 +31,11 @@ class Player(GameSprite):
             self.fire()
 
     def fire(self):
+        if Timer.time() - self.prev_time < 2 and self.rel_flag:
+            return
+        if Timer.time() - self.prev_time > 2 and self.rel_flag:
+            self.rel_flag = False
+            self.num_fire = 0
         if Timer.time() - 0.1 > self.prev_time:
             fire_sound.play()
             x = self.rect.centerx
@@ -36,6 +44,19 @@ class Player(GameSprite):
             bullet.rect.x -= bullet.rect.width // 2
             bullets.add(bullet)
             self.prev_time = Timer.time()
+            self.num_fire += 1
+            if self.num_fire >= 5:
+                self.rel_flag = True
+
+    def reset(self):
+        super().reset()
+        if self.rel_flag:
+            reload = my_font.render('Перезарядка', True, (225, 225, 225))
+            reload_rect = reload.get_rect()
+            reload_rect.centerx = WIDTH // 2
+            reload_rect.centery = HEIGHT // 2
+            mw.blit(reload, (reload_rect.x, reload_rect.y))
+
 
 class Enemy(GameSprite):
     def update(self):
@@ -106,6 +127,8 @@ while game:
         monsters.draw(mw)
         bullets.update()
         bullets.draw(mw)
+        asteroids.update()
+        asteroids.draw(mw)
         missed_text = my_font.render('Пропущено: ' + str(lost), True, (225, 225, 225))
         killed_text = my_font.render('Уничтожено: ' + str(score), True, (225, 225, 225))
         mw.blit(missed_text, (10, 50))
